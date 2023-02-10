@@ -18,6 +18,8 @@
     # 
 # Main
 
+
+
 mkdir dir1 dir2 dir3 dir4
 
 path_array=("./dir1/" "./dir2/" "./dir3/" "./dir4/")
