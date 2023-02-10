@@ -18,18 +18,6 @@
     # 
 # Main
 
-
-# var=3
-# echo $var
-# arr=(4 1 "hello" $var)
-# echo ${arr[2]} # prints slot 2 in array
-
-# arr[2]=7  # changed value in array slot 2 to 7
-# echo ${arr[2]}
-
-
-# End
-
 mkdir dir1 dir2 dir3 dir4
 
 path_array=("./dir1/" "./dir2/" "./dir3/" "./dir4/")
