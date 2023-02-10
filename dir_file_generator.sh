@@ -15,7 +15,7 @@
     # [Bash Concatenate Strings] -(https://linuxize.com/post/bash-concatenate-strings/)
     # [Arrays] - (https://codefellows.github.io/ops-201-guide/curriculum/class-04/challenges/demo/bash.html)
 # My Sources:
-    # 
+    # Ethan's Lecture
 # Main
 
 dir_create(){
