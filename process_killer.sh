@@ -20,7 +20,7 @@ while true
 do
     ps aux
     echo ""
-    echo "Enter PID to Kill Process YOU are running! Type 'exit' to exit"
+    echo "Enter PID to Kill Process! Type 'exit' to exit"
     echo "You can only kill processes YOUR account is running!"
     read kill_this_pid
 
