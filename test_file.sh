@@ -2,21 +2,31 @@
 
 # Main
 
+
 while true
 do
-    ps aux
+    current_user= whoami
+    if [[ $current_user == "root" ]]; then
+        ps -aux
+
+    else
+        ps -aux | grep --color ^$(whoami)
+    fi
+
     echo ""
+    echo "Process list above includes only the processes you are authorized to kill"
     echo "Enter PID to Kill Process YOU are running! Type 'exit' to exit program"
-    echo "You can only kill processes YOUR account is running!"
+    
     read kill_this_pid
 
     if [[ $kill_this_pid == "exit" ]]; then
         echo "";
-        echo "logfile_generator.sh exited successfully!"
+        echo "process_killer.sh exited successfully!"
         echo "";
         exit
         fi
 
     kill $kill_this_pid
 done
+
 # End

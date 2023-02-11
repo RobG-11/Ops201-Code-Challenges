@@ -13,25 +13,38 @@
     # [Z shell Tutorial] (https://codefellows.github.io/ops-201-guide/curriculum/class-03/challenges/demo/zsh.html)
 # My Sources:
     # [How to List Running Processes in Linux] (https://www.hostinger.com/tutorials/vps/how-to-manage-processes-in-linux-using-command-line)
+    # [How to Grep on a Variable or Grep a String From a Variable] (https://www.putorius.net/grep-string-from-a-variable.html)
+    # [How To Use grep Command In Linux] (https://www.cyberciti.biz/faq/howto-use-grep-command-in-linux-unix/)
+    # [Bash Assign Output of Shell Command To Variable] (https://www.cyberciti.biz/faq/unix-linux-bsd-appleosx-bash-assign-variable-command-output/)
+    # [grep to search data in first column] (https://stackoverflow.com/questions/32555757/grep-to-search-data-in-first-column)
 
 # Main
 
 while true
 do
-    ps aux
+    current_user= whoami
+    if [[ $current_user == "root" ]]; then
+        ps -aux
+
+    else
+        ps -aux | grep --color ^$(whoami)
+    fi
+
     echo ""
-    echo "Enter PID to Kill Process! Type 'exit' to exit"
-    echo "You can only kill processes YOUR account is running!"
+    echo "Process list above includes only the processes you are authorized to kill"
+    echo "Enter PID to Kill Process YOU are running! Type 'exit' to exit program"
+    
     read kill_this_pid
 
     if [[ $kill_this_pid == "exit" ]]; then
         echo "";
-        echo "logfile_generator.sh exited successfully!"
+        echo "process_killer.sh exited successfully!"
         echo "";
         exit
         fi
 
     kill $kill_this_pid
+
 done
 
 # End

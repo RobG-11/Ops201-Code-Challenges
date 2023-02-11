@@ -125,7 +125,7 @@ do
         
         if [[ $record_selection == "exit" ]]; then
             echo "";
-            echo "logfile_generator.sh exited successfully!"
+            echo "linux_log_parser.sh exited successfully!"
             echo "";
             exit
             fi
@@ -135,7 +135,7 @@ do
         
         if [[ $records_to_retrieve == "exit" ]]; then
             echo "";
-            echo "logfile_generator.sh exited successfully!"
+            echo "linux_log_parser.sh exited successfully!"
             echo "";
             exit
             fi
