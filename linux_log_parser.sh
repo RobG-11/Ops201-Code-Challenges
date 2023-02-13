@@ -24,6 +24,9 @@
 
 # Main
 
+clear
+echo "";
+
 parse_log() {
     echo "";
     grep "$search_string" /tmp/log_results.txt

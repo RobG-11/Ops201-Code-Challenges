@@ -18,6 +18,9 @@
     # Ethan's Lecture
 # Main
 
+clear
+echo "";
+
 dir_create(){
     if [[ $dirs_to_create == 1 ]]; then
     mkdir dir1

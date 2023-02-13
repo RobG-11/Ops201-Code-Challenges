@@ -20,6 +20,9 @@
 
 # Main
 
+clear
+echo "";
+
 while true
 do
     current_user= whoami
