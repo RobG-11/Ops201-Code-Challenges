@@ -22,7 +22,7 @@
 
 @ECHO OFF
 ECHO My_Project_Files BACKED UP!
-ROBOCOPY C:\Users\j.thompson\Desktop\My_Project_Files E:\My_Project_Files_backup /LOG:backuplog.txt
+ROBOCOPY /e C:\Users\j.thompson\Desktop\My_Project_Files E:\My_Project_Files_backup /LOG:backuplog.txt
 PAUSE
 
 :: End
