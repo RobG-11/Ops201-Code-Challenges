@@ -6,11 +6,12 @@
 
 # Main
 
-# Function enables RDP connections, enables Network Level Authentication, enables Windows firewall rules to allow incoming RDP
+# Function enables RDP connections, enables Network Level Authentication, enables Windows firewall rules to allow incoming RDP, enables RDP for user
 function Get-RdpNetAuthEnabled {
     Set-ItemProperty ‘HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\‘ -Name “fDenyTSConnections” -Value 0
     Set-ItemProperty ‘HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\‘ -Name “UserAuthentication” -Value 1
     Enable-NetFirewallRule -DisplayGroup “Remote Desktop”
+    -Group "Remote Desktop Users" -Member $user_name
 }
 
 # Function takes user full name & username as input, creates user with no current password, prints new user into to screen to verify
@@ -21,12 +22,20 @@ function Get-NewUser {
     $password = Read-Host -AsSecureString "Please enter a secure password"
     $current_date = Get-Date -DisplayHint Date
     New-LocalUser -Name "$user_name" -Password $password -FullName $user_full_name -Description "Created $current_date"
-    $verify = Get-LocalUser -Name $user_name
-    "$verify"
+    Get-LocalUser -Name $user_name
 }
+
+Write-Output "Welcome to the new user account set up program!"
 
 Get-NewUser
 
-powershell -noexit
+$enable_rdp = Read-Host "Would you like to enable RDP for this account (Y/N)?"
+
+if ($enable_rdp = "Y") {
+    Get-RdpNetAuthEnabled
+}
+
+
+    
 
 # End
