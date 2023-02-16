@@ -19,6 +19,7 @@
     # [Chapter 9 - Functions] (https://learn.microsoft.com/en-us/powershell/scripting/learn/ps101/09-functions?view=powershell-7.3)
     # [How to keep the shell window open after running a PowerShell script?] (https://stackoverflow.com/questions/16739322/how-to-keep-the-shell-window-open-after-running-a-powershell-script)
     # [Viewing Truncated PowerShell Output] (https://greiginsydney.com/viewing-truncated-powershell-output/)
+    # [How to Wait for User Keypress in #PowerShell] (https://devtipscurator.wordpress.com/2017/02/01/quick-tip-how-to-wait-for-user-keypress-in-powershell/)
 
 # Main
 
@@ -44,9 +45,18 @@ function Get-SystemLogNewest500Sources {
 
 Get-SystemLogLast24
 Get-SystemLogErrors
+
 Get-SystemLogID16
+Write-Host "All system log entries with an ID of 16 listed above, press any key to continue..."
+$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 Get-SystemLogNewest20
+Write-Host "20 most recent system log entries listed above, press any key to continue..."
+$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 Get-SystemLogNewest500Sources
+Write-Host "500 most recent system log entry sources above, press any key to continue..."
+$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 powershell -noexit
 
