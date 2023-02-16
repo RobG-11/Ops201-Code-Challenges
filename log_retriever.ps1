@@ -20,15 +20,18 @@
     # [How to keep the shell window open after running a PowerShell script?] (https://stackoverflow.com/questions/16739322/how-to-keep-the-shell-window-open-after-running-a-powershell-script)
     # [Viewing Truncated PowerShell Output] (https://greiginsydney.com/viewing-truncated-powershell-output/)
     # [How to Wait for User Keypress in #PowerShell] (https://devtipscurator.wordpress.com/2017/02/01/quick-tip-how-to-wait-for-user-keypress-in-powershell/)
+    # [Read-Host] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/read-host?view=powershell-7.3)
 
 # Main
 
+$CurrentUser = $env:username
+
 function Get-SystemLogLast24 {
-    Get-EventLog -LogName System -After (Get-Date).AddDays(-1) | Format-Table -AutoSize | Out-File c:\Users\user\desktop\last_24.txt
+    Get-EventLog -LogName System -After (Get-Date).AddDays(-1) | Format-Table -AutoSize | Out-File c:\Users\$CurrentUser\desktop\last_24.txt
 }
 
 function Get-SystemLogErrors {
-    Get-EventLog -LogName System -EntryType Error | Format-Table -AutoSize | Out-File c:\Users\user\desktop\errors.txt
+    Get-EventLog -LogName System -EntryType Error | Format-Table -AutoSize | Out-File c:\Users\$CurrentUser\desktop\errors.txt
 }
 
 function Get-SystemLogID16 {
