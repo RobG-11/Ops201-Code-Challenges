@@ -14,7 +14,7 @@ function Get-RdpNetAuthEnabled {
 }
 
 # Function takes user full name & username as input, creates user with no current password, prints new user into to screen to verify
-runas /noprofile /user:Admin cmd
+runas /noprofile /user:Admin
 
 function Get-NewUser {
     $user_full_name = Read-Host "Please enter new users full name"
