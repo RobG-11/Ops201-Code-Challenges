@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Script: 09 - Log Retrieval via PowerShell
 # Author: Robert Gregor
 # Date of latest revision: 161022FFEB23
