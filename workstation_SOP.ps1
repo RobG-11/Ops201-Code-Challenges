@@ -24,7 +24,7 @@ Write-Output "Welcome to the new user account set up program!"
 Get-NewUser
 
 
-# Function enables RDP connections, enables Network Level Authentication, enables Windows firewall rules to allow incoming RDP, enables RDP for user
+# Function enables RDP connections, enables Network Level Authentication, enables Windows firewall rules to allow incoming RDP
 function Get-RdpNetAuthEnabled {
     Set-ItemProperty ‘HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\‘ -Name “fDenyTSConnections” -Value 0
     Set-ItemProperty ‘HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\‘ -Name “UserAuthentication” -Value 1
