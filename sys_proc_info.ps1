@@ -37,19 +37,19 @@ function Get-TopFiveProcByWS {
 }
 
 function Get-StartIEOwasp {
-    Start-Process iexplore.exe "https://owasp.org/www-project-top-ten/"
+    Start-Process msedge.exe "https://owasp.org/www-project-top-ten/"
 }
 
 function Get-StartIEOwaspXten {
     $i = 1
     for (;$i -le 10;$i++) 
     {
-        Start-Process iexplore.exe "https://owasp.org/www-project-top-ten/"
+        Start-Process msedge.exe "https://owasp.org/www-project-top-ten/"
     }
 }
 
 function Get-KillProcIEbyID {
-    Stop-Process -Name "iexplore"
+    Stop-Process -Name msedge.exe
 }
 
 Get-AllActProcByCPU
