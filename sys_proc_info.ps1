@@ -49,7 +49,7 @@ function Get-StartIEOwaspXten {
 }
 
 function Get-KillProcIEbyID {
-    Stop-Process -Name msedge.exe
+    Stop-Process -Name "msedge"
 }
 
 Get-AllActProcByCPU
@@ -73,7 +73,7 @@ Write-Host "Owasp top 10 opened ten times in default browser, press any key to c
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 Get-KillProcIEbyID
-Write-Host "All IE browser windows closed, iexplore.exe process killed, press any key to continue..."
+Write-Host "Press any key to exit..."
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 powershell -noexit
