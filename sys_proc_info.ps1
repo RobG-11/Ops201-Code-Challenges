@@ -42,8 +42,10 @@ function Get-StartIEOwasp {
 
 function Get-StartIEOwaspXten {
     $i = 1
-    for (;$i -le 10;$i++)
-    Start-Process iexplore.exe "https://owasp.org/www-project-top-ten/"
+    for (;$i -le 10;$i++) 
+    {
+        Start-Process iexplore.exe "https://owasp.org/www-project-top-ten/"
+    }
 }
 
 function Get-KillProcIEbyID {
