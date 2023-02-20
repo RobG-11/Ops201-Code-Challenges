@@ -27,8 +27,8 @@
     # [Get-NetFirewallRule] (https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallrule?view=windowsserver2022-ps)
     # [How to view installed apps with PowerShell on Windows 10] (https://pureinfotech.com/view-installed-apps-powershell-windows-10/)
     # [How do you check to see if Hyper-V is enabled using PowerShell?] (https://stackoverflow.com/questions/37567596/how-do-you-check-to-see-if-hyper-v-is-enabled-using-powershell)
-
-
+    # [How to Fix WinRm Firewall Exception Rule When Enabling PS Remoting] (https://www.faqforge.com/powershell/fix-winrm-firewall-exception-rule-enabling-ps-remoting/)
+    
 
 # Main
 
@@ -57,9 +57,7 @@ function Get-AllowICMPtraffic {
 function Get-EnableRemMgmt {
     Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
-    Show-ControlPanelItem -CanonicalName Microsoft.RemoteAppAndDesktopConnections
     Write-Host "Remote Managment Enabled"
-    Write-Host "In Windows Settings window that opened, under 'Related Settings', click on Remote desktop to confirm"
     Get-AnyKeyToContinue
 }
 
@@ -98,21 +96,15 @@ function Get-DisableSMBv1 {
 
 Get-EnableSharing
 
-
 Get-AllowICMPtraffic
-
 
 Get-EnableRemMgmt
 
-
 Get-RemoveBloatware
-
 
 Get-EnableHyperV
 
-
 Get-DisableSMBv1
-
 
 powershell -noexit
 
