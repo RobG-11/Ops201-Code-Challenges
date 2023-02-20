@@ -28,6 +28,7 @@
     # [How to view installed apps with PowerShell on Windows 10] (https://pureinfotech.com/view-installed-apps-powershell-windows-10/)
     # [How do you check to see if Hyper-V is enabled using PowerShell?] (https://stackoverflow.com/questions/37567596/how-do-you-check-to-see-if-hyper-v-is-enabled-using-powershell)
     # [How to Fix WinRm Firewall Exception Rule When Enabling PS Remoting] (https://www.faqforge.com/powershell/fix-winrm-firewall-exception-rule-enabling-ps-remoting/)
+    # [Powershell remove app package] (https://learn.microsoft.com/en-us/answers/questions/65522/powershell-remove-app-package-(remove-appxpackage?sort=oldest&orderby=helpful) + ChatGPT
     
 
 # Main
@@ -62,11 +63,13 @@ function Get-EnableRemMgmt {
 }
 
 function Get-RemoveBloatware {
-    Get-AppxPackage Select Name, PackageFullName
+    Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table -AutoSize
     Write-Host "Current installed applications listed above, To remove bloatware..."
     Get-AnyKeyToContinue
 
-    Get-AppxPackage Select Name, PackageFullName
+    Get-AppxPackage -AllUsers | where-object {$_.IsSystem -ne $true} | Remove-AppxPackage # Used ChatGPT for middle portion of this line
+
+    Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table -AutoSize
     Write-Host "Installed applications after bloatware removed listed above"
     Get-AnyKeyToContinue
 }
