@@ -27,9 +27,13 @@
     # [Get-NetFirewallRule] (https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallrule?view=windowsserver2022-ps)
     # [How to view installed apps with PowerShell on Windows 10] (https://pureinfotech.com/view-installed-apps-powershell-windows-10/)
     # [How do you check to see if Hyper-V is enabled using PowerShell?] (https://stackoverflow.com/questions/37567596/how-do-you-check-to-see-if-hyper-v-is-enabled-using-powershell)
-    # [How to Fix WinRm Firewall Exception Rule When Enabling PS Remoting] (https://www.faqforge.com/powershell/fix-winrm-firewall-exception-rule-enabling-ps-remoting/)    
+    # [How to Fix WinRm Firewall Exception Rule When Enabling PS Remoting] (https://www.faqforge.com/powershell/fix-winrm-firewall-exception-rule-enabling-ps-remoting/)
+    # [Prompting for User Input with PowerShell] (https://www.itprotoday.com/powershell/prompting-user-input-powershell)
+
 
 # Main
+
+clear
 
 function Get-AnyKeyToContinue {
     Write-Host "Press any key to continue..."
@@ -63,7 +67,9 @@ function Get-RemoveBloatware {
     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
     Write-Host "Current installed bloatware listed above"
     $BloatName = Read-Host -Prompt "Copy and paste package name you would like to remove and press ENTER"
+
     DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
+    
     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
     Write-Host "Confirm bloatware has been removed in new bloatware list above"
     Get-AnyKeyToContinue
