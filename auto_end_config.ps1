@@ -21,11 +21,17 @@
     # [How to Remove Windows 10 Bloatware] (https://winbuzzer.com/2020/06/16/how-to-remove-windows-10s-built-in-apps-bloatware-and-and-restore-them-again-xcxwbt/)
     # [How to enable Hyper-V on Windows 10] (https://www.onmsft.com/how-to/enable-hyper-v-on-windows-10/)
     # [How to Disable/Enable SMB v 1.0 in Windows 10/Server 2016?] (https://woshub.com/how-to-disable-smb-1-0-in-windows-10-server-2016/)
+    # [Show-ControlPanelItem] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/show-controlpanelitem?view=powershell-5.1)
+    # [Win10 - Canonical Names of Control Panel Items] (https://www.reddit.com/r/windows/comments/amy2m1/win10_canonical_names_of_control_panel_items/)
+    # [Windows control panel] (https://renenyffenegger.ch/notes/Windows/control-panel/index)
+    # [Get-NetConnectionProfile] (https://learn.microsoft.com/en-us/powershell/module/netconnection/get-netconnectionprofile?view=windowsserver2022-ps)
+    
 
 # Main
 
 function Get-EnableSharing {
     netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
+    Get-NetConnectionProfile | Select-Object Name, NetworkCategory, FileSharingEnabled, PrintSharingEnabled
 }
 
 function Get-AllowICMPtraffic {
@@ -34,6 +40,7 @@ function Get-AllowICMPtraffic {
 
 function Get-EnableRemMgmt {
     Enable-PSRemoting -Force
+    Show-ControlPanelItem -CanonicalName Microsoft.RemoteAppAndDesktopConnections
 }
 
 function Get-RemoveBloatware {
@@ -49,7 +56,8 @@ function Get-DisableSMBv1 {
 }
 
 Get-EnableSharing
-Write-Host "File & Printer Sharing ENABLED, press any key to continue..."
+Write-Host "In Network & Sharing Window that opened click on 'Change advanced sharing settings' to confirm."
+Write-Host "Press any key to continue..."
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 Get-AllowICMPtraffic
