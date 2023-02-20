@@ -20,12 +20,9 @@
     # [Enable-PSRemoting] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enable-psremoting?view=powershell-7.3)
     # [How to Remove Windows 10 Bloatware] (https://winbuzzer.com/2020/06/16/how-to-remove-windows-10s-built-in-apps-bloatware-and-and-restore-them-again-xcxwbt/)
     # [How to enable Hyper-V on Windows 10] (https://www.onmsft.com/how-to/enable-hyper-v-on-windows-10/)
-    # [] ()
-    # [] ()
-    # [] ()
+    # [How to Disable/Enable SMB v 1.0 in Windows 10/Server 2016?] (https://woshub.com/how-to-disable-smb-1-0-in-windows-10-server-2016/)
 
 # Main
-
 
 function Get-EnableSharing {
     netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
@@ -48,7 +45,7 @@ function Get-EnableHyperV {
 }
 
 function Get-DisableSMBv1 {
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+    Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 }
 
 Get-EnableSharing
@@ -72,7 +69,7 @@ Write-Host "Hyper-V ENABLED, press any key to continue..."
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 Get-DisableSMBv1
-Write-Host "Press any key to exit..."
+Write-Host "SMBv1 DISABLED, Press any key to exit..."
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 powershell -noexit
