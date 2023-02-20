@@ -24,61 +24,94 @@
     # [Show-ControlPanelItem] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/show-controlpanelitem?view=powershell-5.1)
     # [Win10 - Canonical Names of Control Panel Items] (https://www.reddit.com/r/windows/comments/amy2m1/win10_canonical_names_of_control_panel_items/)
     # [Windows control panel] (https://renenyffenegger.ch/notes/Windows/control-panel/index)
-    # [Get-NetConnectionProfile] (https://learn.microsoft.com/en-us/powershell/module/netconnection/get-netconnectionprofile?view=windowsserver2022-ps)
-    
+    # [Get-NetFirewallRule] (https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallrule?view=windowsserver2022-ps)
+    # [How to view installed apps with PowerShell on Windows 10] (https://pureinfotech.com/view-installed-apps-powershell-windows-10/)
+    # [How do you check to see if Hyper-V is enabled using PowerShell?] (https://stackoverflow.com/questions/37567596/how-do-you-check-to-see-if-hyper-v-is-enabled-using-powershell)
+
+
 
 # Main
 
+function Get-AnyKeyToContinue {
+    Write-Host "Press any key to continue..."
+    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+
 function Get-EnableSharing {
     netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
-    Get-NetConnectionProfile | Select-Object Name, NetworkCategory, FileSharingEnabled, PrintSharingEnabled
+    Show-ControlPanelItem -CanonicalName Microsoft.NetworkAndSharingCenter
+    Write-Host "File and Printer Sharing enabled"
+    Write-Host "In Network & Sharing window that opened, click on 'Change advanced sharing settings' to confirm"
+    Get-AnyKeyToContinue
 }
 
 function Get-AllowICMPtraffic {
     netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
+    Show-ControlPanelItem -CanonicalName Microsoft.WindowsFirewall
+    Write-Host "Inbound ICMPv4 Allowed"
+    Write-Host "In Windows Defender Firewall window that opened, click on Advance settings -> Inbound Rules"
+    Write-Host "Navigate to 'File and Printer Sharing (Echo Request - ICMPv4-In)', double click to confirm"
+    Get-AnyKeyToContinue
 }
 
 function Get-EnableRemMgmt {
     Enable-PSRemoting -Force
     Show-ControlPanelItem -CanonicalName Microsoft.RemoteAppAndDesktopConnections
+    Write-Host "Remote Managment Enabled"
+    Write-Host "In Windows Settings window that opened, under 'Related Settings', click on Remote desktop to confirm"
+    Get-AnyKeyToContinue
 }
 
 function Get-RemoveBloatware {
-    Get-AppxPackage * | Remove-AppxPackage
+    Get-AppxPackage -AllUsers | Select Name, PackageFullName
+    Write-Host "Current installed applications listed above, To remove bloatware..."
+    Get-AnyKeyToContinue
+    Enable-PSRemoting -Force
+    Get-AppxPackage -AllUsers | Select Name, PackageFullName
+    Write-Host "Installed applications after bloatware removed listed above"
+    Get-AnyKeyToContinue
 }
 
 function Get-EnableHyperV {
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+    Write-Host "Hyper-V has been enabled"
+    Write-Host "To check if Hyper V is enabled..."
+    Get-AnyKeyToContinue
+    $hyperv = Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online
+    if($hyperv.State -eq "Enabled") {
+        Write-Host "Hyper-V is enabled"
+    } else {
+        Write-Host "Hyper-V is disabled"
+    }
+    Get-AnyKeyToContinue  
 }
 
 function Get-DisableSMBv1 {
     Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
+    Write-Host "SMBv1 has been disabled"
+    Write-Host "To check if SMBv1 is Disabled..."
+    Get-AnyKeyToContinue
+    Get-SmbServerConfiguration | Select EnableSMB1Protocol
+    Get-AnyKeyToContinue
 }
 
 Get-EnableSharing
-Write-Host "In Network & Sharing Window that opened click on 'Change advanced sharing settings' to confirm."
-Write-Host "Press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 
 Get-AllowICMPtraffic
-Write-Host "ICMP Traffic ALLOWED, press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 
 Get-EnableRemMgmt
-Write-Host "Remote Management ENABLED, press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 
 Get-RemoveBloatware
-Write-Host "Bloatware REMOVED, press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 
 Get-EnableHyperV
-Write-Host "Hyper-V ENABLED, press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 
 Get-DisableSMBv1
-Write-Host "SMBv1 DISABLED, Press any key to exit..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 
 powershell -noexit
 
