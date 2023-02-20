@@ -50,7 +50,7 @@ function Get-AllowICMPtraffic {
     Show-ControlPanelItem -CanonicalName Microsoft.WindowsFirewall
     Write-Host "Inbound ICMPv4 Allowed"
     Write-Host "In Windows Defender Firewall window that opened, click on Advance settings -> Inbound Rules"
-    Write-Host "Navigate to 'File and Printer Sharing (Echo Request - ICMPv4-In)', double click to confirm"
+    Write-Host "Navigate to 'File and Printer Sharing (Echo Request - ICMPv4-In)', confirm green check mark or double click"
     Get-AnyKeyToContinue
 }
 
@@ -66,7 +66,7 @@ function Get-RemoveBloatware {
     Get-AppxPackage -AllUsers | Select Name, PackageFullName
     Write-Host "Current installed applications listed above, To remove bloatware..."
     Get-AnyKeyToContinue
-    Enable-PSRemoting -Force
+    
     Get-AppxPackage -AllUsers | Select Name, PackageFullName
     Write-Host "Installed applications after bloatware removed listed above"
     Get-AnyKeyToContinue
