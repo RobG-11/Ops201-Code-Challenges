@@ -27,9 +27,7 @@
     # [Get-NetFirewallRule] (https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallrule?view=windowsserver2022-ps)
     # [How to view installed apps with PowerShell on Windows 10] (https://pureinfotech.com/view-installed-apps-powershell-windows-10/)
     # [How do you check to see if Hyper-V is enabled using PowerShell?] (https://stackoverflow.com/questions/37567596/how-do-you-check-to-see-if-hyper-v-is-enabled-using-powershell)
-    # [How to Fix WinRm Firewall Exception Rule When Enabling PS Remoting] (https://www.faqforge.com/powershell/fix-winrm-firewall-exception-rule-enabling-ps-remoting/)
-    # [Powershell remove app package] (https://learn.microsoft.com/en-us/answers/questions/65522/powershell-remove-app-package-(remove-appxpackage?sort=oldest&orderby=helpful) + ChatGPT
-    
+    # [How to Fix WinRm Firewall Exception Rule When Enabling PS Remoting] (https://www.faqforge.com/powershell/fix-winrm-firewall-exception-rule-enabling-ps-remoting/)    
 
 # Main
 
@@ -58,19 +56,17 @@ function Get-AllowICMPtraffic {
 function Get-EnableRemMgmt {
     Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
-    Write-Host "Remote Managment Enabled"
     Get-AnyKeyToContinue
 }
 
 function Get-RemoveBloatware {
-    Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table -AutoSize
-    Write-Host "Current installed applications listed above, To remove bloatware..."
-    Get-AnyKeyToContinue
-
-    Get-AppxPackage -AllUsers | where-object {$_.IsSystem -ne $true} | Remove-AppxPackage # Used ChatGPT for middle portion of this line
-
-    Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table -AutoSize
-    Write-Host "Installed applications after bloatware removed listed above"
+    DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
+    Write-Host "Current installed bloatware listed above"
+    Write-Host "Copy and paste package name you would like to remove and press ENTER"
+    read $BloatName
+    DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
+    DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
+    Write-Host "Confirm bloatware has been removed in new bloatware list above"
     Get-AnyKeyToContinue
 }
 
