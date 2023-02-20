@@ -33,6 +33,8 @@
 
 # Main
 
+# NOT COMPLETE TRYING TO ADD FUNCTIONALITY
+
 clear
 
 function Get-AnyKeyToContinue {
@@ -69,7 +71,7 @@ function Get-RemoveBloatware {
     $BloatName = Read-Host -Prompt "Copy and paste package name you would like to remove and press ENTER"
 
     DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
-    
+
     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
     Write-Host "Confirm bloatware has been removed in new bloatware list above"
     Get-AnyKeyToContinue
