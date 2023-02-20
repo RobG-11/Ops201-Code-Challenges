@@ -55,6 +55,7 @@ function Get-AllowICMPtraffic {
 }
 
 function Get-EnableRemMgmt {
+    Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
     Show-ControlPanelItem -CanonicalName Microsoft.RemoteAppAndDesktopConnections
     Write-Host "Remote Managment Enabled"
@@ -66,7 +67,7 @@ function Get-RemoveBloatware {
     Get-AppxPackage -AllUsers | Select Name, PackageFullName
     Write-Host "Current installed applications listed above, To remove bloatware..."
     Get-AnyKeyToContinue
-    
+
     Get-AppxPackage -AllUsers | Select Name, PackageFullName
     Write-Host "Installed applications after bloatware removed listed above"
     Get-AnyKeyToContinue
