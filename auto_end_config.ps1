@@ -62,11 +62,11 @@ function Get-EnableRemMgmt {
 }
 
 function Get-RemoveBloatware {
-    Get-AppxPackage -AllUsers | Select Name, PackageFullName
+    Get-AppxPackage Select Name, PackageFullName
     Write-Host "Current installed applications listed above, To remove bloatware..."
     Get-AnyKeyToContinue
 
-    Get-AppxPackage -AllUsers | Select Name, PackageFullName
+    Get-AppxPackage Select Name, PackageFullName
     Write-Host "Installed applications after bloatware removed listed above"
     Get-AnyKeyToContinue
 }
