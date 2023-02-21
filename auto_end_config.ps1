@@ -67,37 +67,37 @@ function Get-EnableRemMgmt {
     Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
     Write-Host ""
-    Get-AnyKeyToContinue
 }
 
 # WHY DOES THIS FUNCTION WORK FINE OUTSIDE THE PROGRAM BUT PRINTS NO OUTPUT WHEN RUN INSIDE THE PROGRAM !@#!@#$@!#%@!#%@!%#!%#@!%#!%#!% anger
 
-# function Get-RemoveBloatware {
-#     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
-#     Write-Host "Current installed bloatware listed above"
-#     $BloatName = Read-Host "Copy and paste package name you would like to remove and press ENTER"
-
-#     DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
-
-#     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
-#     Write-Host "Confirm bloatware has been removed in new bloatware list above"
-#     Write-Host ""
-#     Get-AnyKeyToContinue
-# }
-
 function Get-RemoveBloatware {
-    $RemoveBW = Read-Host "Would you like to remove bloatware (Y/N)?"
-    if($RemoveBW == "Y") {
-        iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/debloat'))
-        Write-Host ""
-        Write-Host "Bloatware Removed!"
-    } else {
-        Write-Host ""
-        Write-Host "Bloatware not removed"
-    }
+    Get-AnyKeyToContinue
+    DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
+    Write-Host "Current installed bloatware listed above"
+    $BloatName = Read-Host "Copy and paste package name you would like to remove and press ENTER"
+
+    DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
+
+    DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
+    Write-Host "Confirm bloatware has been removed in new bloatware list above"
     Write-Host ""
     Get-AnyKeyToContinue
 }
+
+# function Get-RemoveBloatware {
+#     $RemoveBW = Read-Host "Would you like to remove bloatware (Y/N)?"
+#     if($RemoveBW == "Y") {
+#         iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/debloat'))
+#         Write-Host ""
+#         Write-Host "Bloatware Removed!"
+#     } else {
+#         Write-Host ""
+#         Write-Host "Bloatware not removed"
+#     }
+#     Write-Host ""
+#     Get-AnyKeyToContinue
+# }
 
 function Get-EnableHyperV {
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All 
@@ -116,9 +116,7 @@ function Get-EnableHyperV {
 function Get-DisableSMBv1 {
     Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
     Write-Host "SMBv1 has been disabled"
-    Write-Host "To check if SMBv1 is Disabled press any key to continue..."
-    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    Get-SmbServerConfiguration | Select EnableSMB1Protocol
+    Get-SmbServerConfiguration | Select EnableSMB1Protocol | Write-Output
 }
 
 Get-EnableSharing
