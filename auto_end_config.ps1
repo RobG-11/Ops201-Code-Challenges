@@ -110,7 +110,16 @@ Get-AllowICMPtraffic
 
 Get-EnableRemMgmt
 
-Get-RemoveBloatware
+clear
+DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
+Write-Host "Current installed bloatware listed above"
+$BloatName = Read-Host "Copy and paste package name you would like to remove and press ENTER"
+
+DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
+
+DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
+Write-Host "Confirm bloatware has been removed in new bloatware list above"
+Get-AnyKeyToContinue
 
 Get-EnableHyperV
 
