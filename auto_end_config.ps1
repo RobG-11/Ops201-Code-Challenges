@@ -69,8 +69,6 @@ function Get-EnableRemMgmt {
 }
 
 function Get-RemoveBloatware {
-    clear
-
     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
     Write-Host "Current installed bloatware listed above"
     $BloatName = Read-Host "Copy and paste package name you would like to remove and press ENTER"
