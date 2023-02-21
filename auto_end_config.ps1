@@ -100,9 +100,8 @@ function Get-RemoveBloatware {
 }
 
 function Get-EnableHyperV {
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-    Write-Host "Hyper-V has been enabled"
-    Write-Host "To check if Hyper V is enabled..."
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All 
+    Write-Host "To confirm Hyper V is enabled by executing a .State command..."
     Get-AnyKeyToContinue
     $hyperv = Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online
     if($hyperv.State -eq "Enabled") {
@@ -117,8 +116,9 @@ function Get-EnableHyperV {
 function Get-DisableSMBv1 {
     Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
     Write-Host "SMBv1 has been disabled"
-    Write-Host "To check if SMBv1 is Disabled..."
-    Get-AnyKeyToContinue
+    Write-Host "To check if SMBv1 is Disabled press any key to continue..."
+    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
     Get-SmbServerConfiguration | Select EnableSMB1Protocol
     Write-Host ""
     Get-AnyKeyToContinue
