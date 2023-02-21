@@ -1,6 +1,6 @@
 # Script: 11 - Automated Endpoint Configuration
 # Author: Robert Gregor
-# Date of latest revision: 201422FFEB23
+# Date of latest revision: 202122FFEB23
 # Purpose:
     # Write a Powershell script that automates the configuration of a new Windows 10 endpoint
     # Test and validate script achieves desired outcome for each listed objective
@@ -32,8 +32,6 @@
 
 
 # Main
-
-# NOT COMPLETE TRYING TO ADD FUNCTIONALITY
 
 clear
 
@@ -67,6 +65,7 @@ function Get-EnableRemMgmt {
     Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
     Write-Host ""
+    Get-AnyKeyToContinue
 }
 
 # WHY DOES THIS FUNCTION WORK FINE OUTSIDE THE PROGRAM BUT PRINTS NO OUTPUT WHEN RUN INSIDE THE PROGRAM !@#!@#$@!#%@!#%@!%#!%#@!%#!%#!% anger
@@ -89,10 +88,10 @@ function Get-RemoveBloatware {
     if($RemoveBW -eq "Y") {
         iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/debloat'))
         Write-Host ""
-        Write-Host "Bloatware Removed!"
+        Write-Host "Operation Copmleted!"
     } else {
         Write-Host ""
-        Write-Host "Bloatware not removed"
+        Write-Host "NO Bloatware removed"
     }
     Write-Host ""
     Get-AnyKeyToContinue
@@ -114,8 +113,9 @@ function Get-EnableHyperV {
 
 function Get-DisableSMBv1 {
     Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
-    Write-Host "SMBv1 has been disabled"
+    Write-Host "SMBv1 has been disabled, confirmed below..."
     Get-SmbServerConfiguration | Select EnableSMB1Protocol | Write-Output
+    Get-AnyKeyToContinue
 }
 
 Get-EnableSharing
@@ -129,7 +129,5 @@ Get-RemoveBloatware
 Get-EnableHyperV
 
 Get-DisableSMBv1
-
-powershell -noexit
 
 # End
