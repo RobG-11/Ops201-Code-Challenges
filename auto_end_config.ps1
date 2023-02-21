@@ -88,7 +88,7 @@ function Get-RemoveBloatware {
     if($RemoveBW -eq "Y") {
         iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/debloat'))
         Write-Host ""
-        Write-Host "Operation Copmleted!"
+        Write-Host "Operation Completed!"
     } else {
         Write-Host ""
         Write-Host "NO Bloatware removed"
@@ -107,8 +107,8 @@ function Get-EnableHyperV {
     } else {
         Write-Host "Hyper-V is disabled"
     }
-
-    Write-Host ""image.png 
+    Write-Host ""image.png
+    Get-AnyKeyToContinue 
 }
 
 function Get-DisableSMBv1 {
