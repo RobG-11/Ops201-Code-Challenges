@@ -43,6 +43,7 @@ function Get-AnyKeyToContinue {
 }
 
 function Get-EnableSharing {
+    clear
     netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
     Show-ControlPanelItem -CanonicalName Microsoft.NetworkAndSharingCenter
     Write-Host "File and Printer Sharing enabled"
@@ -51,6 +52,7 @@ function Get-EnableSharing {
 }
 
 function Get-AllowICMPtraffic {
+    clear
     netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
     Show-ControlPanelItem -CanonicalName Microsoft.WindowsFirewall
     Write-Host "Inbound ICMPv4 Allowed"
@@ -60,15 +62,17 @@ function Get-AllowICMPtraffic {
 }
 
 function Get-EnableRemMgmt {
+    clear
     Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
     Get-AnyKeyToContinue
 }
 
 function Get-RemoveBloatware {
+    clear
     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
     Write-Host "Current installed bloatware listed above"
-    $BloatName = Read-Host -Prompt "Copy and paste package name you would like to remove and press ENTER"
+    $BloatName = Read-Host "Copy and paste package name you would like to remove and press ENTER"
 
     DISM /Online /Remove-ProvisionedAppxPackage /PackageName:$BloatName
 
