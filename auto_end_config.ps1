@@ -118,11 +118,7 @@ function Get-DisableSMBv1 {
     Write-Host "SMBv1 has been disabled"
     Write-Host "To check if SMBv1 is Disabled press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    Write-Host ""
-    Write-Host ""
     Get-SmbServerConfiguration | Select EnableSMB1Protocol
-    Write-Host ""
-    Get-AnyKeyToContinue
 }
 
 Get-EnableSharing
