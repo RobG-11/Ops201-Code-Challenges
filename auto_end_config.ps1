@@ -40,6 +40,7 @@ clear
 function Get-AnyKeyToContinue {
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    clear
 }
 
 function Get-EnableSharing {
@@ -48,23 +49,24 @@ function Get-EnableSharing {
     Show-ControlPanelItem -CanonicalName Microsoft.NetworkAndSharingCenter
     Write-Host "File and Printer Sharing enabled"
     Write-Host "In Network & Sharing window that opened, click on 'Change advanced sharing settings' to confirm"
+    Write-Host ""
     Get-AnyKeyToContinue
 }
 
 function Get-AllowICMPtraffic {
-    clear
     netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
     Show-ControlPanelItem -CanonicalName Microsoft.WindowsFirewall
     Write-Host "Inbound ICMPv4 Allowed"
     Write-Host "In Windows Defender Firewall window that opened, click on Advance settings -> Inbound Rules"
     Write-Host "Navigate to 'File and Printer Sharing (Echo Request - ICMPv4-In)', confirm green check mark or double click"
+    Write-Host ""
     Get-AnyKeyToContinue
 }
 
 function Get-EnableRemMgmt {
-    clear
     Set-WSManQuickConfig -SkipNetworkProfileCheck -ErrorAction SilentlyContinue
     Enable-PSRemoting -Force
+    Write-Host ""
     Get-AnyKeyToContinue
 }
 
@@ -77,6 +79,7 @@ function Get-RemoveBloatware {
 
     DISM /Online /Get-ProvisionedAppxPackages | select-string Packagename
     Write-Host "Confirm bloatware has been removed in new bloatware list above"
+    Write-Host ""
     Get-AnyKeyToContinue
 }
 
@@ -91,6 +94,7 @@ function Get-EnableHyperV {
     } else {
         Write-Host "Hyper-V is disabled"
     }
+    Write-Host ""
     Get-AnyKeyToContinue  
 }
 
@@ -100,6 +104,7 @@ function Get-DisableSMBv1 {
     Write-Host "To check if SMBv1 is Disabled..."
     Get-AnyKeyToContinue
     Get-SmbServerConfiguration | Select EnableSMB1Protocol
+    Write-Host ""
     Get-AnyKeyToContinue
 }
 
