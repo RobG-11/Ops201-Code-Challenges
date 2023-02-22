@@ -58,8 +58,7 @@ function Get-IP {
 function Get-TestNetAdpConnect {
     Write-Host "Testing Network Adapter connectivity..."
     Write-Host ""
-    $ipConfigAll = ipconfig /all
-    $DefaultGateway = $ipconfig | Select-String "Default Gateway"
+    $DefaultGateway = ip config /all | Select-String "Default Gateway" | Select-Object -First 1
     $DefaultGatewayIP = ($DefaultGateway -split " ")[-1]
     Test-NetConnection "$DefaultGatewayIP"
     Write-Host ""
