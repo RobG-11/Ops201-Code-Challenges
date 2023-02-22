@@ -46,8 +46,6 @@ Get-IP
 
 # Code beneath is experimental
 
-clear
-
 function Get-IP {
     Write-Host "Below is your IPv4 address..."
     Write-Host ""
@@ -55,11 +53,9 @@ function Get-IP {
     Write-Host ""
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    clear
 }
 
 function Get-TestNetAdpConnect {
-    clear
     Write-Host "Testing Network Adapter connectivity..."
     Write-Host ""
     $DefaultGateway = ipconfig /all | Select-String "Default" | Select-Object -First 1
@@ -68,18 +64,15 @@ function Get-TestNetAdpConnect {
     Write-Host ""
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    clear
 }
 
 function Get-TestIntConnect {
-    clear
     Write-Host "Testing internet connectivity..."
     Write-Host ""
     Test-NetConnection -ComputerName www.codefellows.org -Port 80
     Write-Host ""
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    clear
 }
 
 while($true) {
