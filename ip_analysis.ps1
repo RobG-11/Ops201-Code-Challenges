@@ -23,10 +23,19 @@
 
 clear
 
-$ipconfigAll = ipconfig /all | Out-String
-
-function Get-ReturnIPv4 {
-    $ipconfigAll | Select-String "IPv4" | foreach {$_.ToString()} | Write-Output
+function Get-IP {
+    $ipVersionReq = Read-Host "Please enter which IP verion you would like displayed 1) IPv4 or 2) Ipv6?"
+    if $ipVersionReq = "1" {
+        ipconfig /all | Select-String "IPv4" | Write-Output
+    } elseif $ipVersionReq = "2" {
+        ipconfig /all | Select-String "IPv4" | Write-Output
+    } else {
+        Write-Host "Invalid Input!"
+    }
 }
+
+Get-IP
+
+
 
 # End
