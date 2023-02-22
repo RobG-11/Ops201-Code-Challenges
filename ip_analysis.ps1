@@ -26,6 +26,30 @@ clear
 function Get-IP {
     $ipVersionReq = Read-Host "Please enter which IP verion you would like displayed 1) IPv4 or 2) IPv6?"
     if ($ipVersionReq = "1") {
+        ipconfig /all | Select-String "IPv4" | Write-Output
+    } elseif ($ipVersionReq = "2") {
+        ipconfig /all | Select-String "IPv6" | Write-Output
+    } else {
+        Write-Host "Invalid Input!"
+    }
+}
+
+Get-IP
+
+# End
+
+# Code beneath is experimental
+
+
+
+
+
+
+clear
+
+function Get-IP {
+    $ipVersionReq = Read-Host "Please enter which IP verion you would like displayed 1) IPv4 or 2) IPv6?"
+    if ($ipVersionReq = "1") {
         ipconfig /all | Select-String "IPv4" | Select-Object -First 1 | Write-Output
     } elseif ($ipVersionReq = "2") {
         ipconfig /all | Select-String "IPv6" | Select-Object -First 1 | Write-Output
@@ -35,10 +59,6 @@ function Get-IP {
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
-
-# function Get-TestNetAdpConnect {
-#     Test-Connection - 
-# }
 
 Get-IP
 
