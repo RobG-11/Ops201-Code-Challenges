@@ -55,15 +55,32 @@ function Get-IP {
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
+# function Get-TestNetAdpConnect {
+#     Write-Host "Testing Network Adapter connectivity..."
+#     Write-Host ""
+#     $DefaultGateway = ip config /all | Select-String "Default Gateway" | Select-Object -First 1
+#     $DefaultGatewayIP = ($DefaultGateway -split " ")[-1]
+#     Test-NetConnection -ComputerName "$DefaultGatewayIP"
+#     Write-Host ""
+#     Write-Host "Press any key to continue..."
+#     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# }
+
+## CHAT Gpt revised function...
+
 function Get-TestNetAdpConnect {
-    Write-Host "Testing Network Adapter connectivity..."
-    Write-Host ""
-    $DefaultGateway = ip config /all | Select-String "Default Gateway" | Select-Object -First 1
-    $DefaultGatewayIP = ($DefaultGateway -split " ")[-1]
-    Test-NetConnection "$DefaultGatewayIP"
-    Write-Host ""
-    Write-Host "Press any key to continue..."
-    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    Write-Host "Testing network adapter connectivity..."
+    $DefaultGatewayIP = (Get-NetRoute | Where-Object { $_.DestinationPrefix -eq "0.0.0.0/0" }).NextHop
+    if ($DefaultGatewayIP -eq $null) {
+        Write-Error "Default gateway IP address not found."
+        return
+    }
+    if (Test-NetConnection -ComputerName "$DefaultGatewayIP") {
+        Write-Host "Network adapter connectivity test successful."
+    }
+    else {
+        Write-Host "Network adapter connectivity test failed."
+    }
 }
 
 function Get-TestIntConnect {
