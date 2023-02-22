@@ -26,7 +26,7 @@ clear
 $ipconfigAll = ipconfig /all | Out-String
 
 function Get-ReturnIPv4 {
-    $ipconfigAll | Select-String -Pattern 'ipv4'
+    $ipconfigAll | Select-String "IPv4" | foreach {$_.ToString()} | Write-Output
 }
 
 # End
