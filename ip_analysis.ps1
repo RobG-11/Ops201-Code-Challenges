@@ -44,15 +44,27 @@ Get-IP
 
 # End
 
-# Code beneath is experimental
+# CODE BENEATH IS EXPERIMENTAL - got everything working with my code except 2nd TestNetAdpConnect function, Chat Gpt fixed...
+
+# function Get-IP {
+#     Write-Host "Below is your IPv4 address..."
+#     Write-Host ""
+#     ipconfig /all | Select-String "IPv4" | Select-Object -First 1 | Write-Output
+#     Write-Host ""
+#     Write-Host "Press any key to continue..."
+#     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# }
+
+## CHAT Gpt fa better function below...##
 
 function Get-IP {
-    Write-Host "Below is your IPv4 address..."
-    Write-Host ""
-    ipconfig /all | Select-String "IPv4" | Select-Object -First 1 | Write-Output
-    Write-Host ""
-    Write-Host "Press any key to continue..."
-    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    Write-Host "Retrieving your IPv4 address..."
+    $IPv4Address = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -ne "Loopback Pseudo-Interface 1" }).IPAddress
+    if ($IPv4Address -eq $null) {
+        Write-Error "IPv4 address not found."
+        return
+    }
+    Write-Host "Your IPv4 address is: $IPv4Address"
 }
 
 # function Get-TestNetAdpConnect {
@@ -66,8 +78,7 @@ function Get-IP {
 #     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # }
 
-## CHAT Gpt revised function...
-
+## CHAT Gpt revised function below... which ofcourse works flawlessly whereas mine does not....##
 function Get-TestNetAdpConnect {
     Write-Host "Testing network adapter connectivity..."
     $DefaultGatewayIP = (Get-NetRoute | Where-Object { $_.DestinationPrefix -eq "0.0.0.0/0" }).NextHop
@@ -83,13 +94,26 @@ function Get-TestNetAdpConnect {
     }
 }
 
+# function Get-TestIntConnect {
+#     Write-Host "Testing internet connectivity..."
+#     Write-Host ""
+#     Test-NetConnection -ComputerName www.codefellows.org -Port 80
+#     Write-Host ""
+#     Write-Host "Press any key to continue..."
+#     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# }
+
+## CHAT Gpt's far better function below... ##
 function Get-TestIntConnect {
     Write-Host "Testing internet connectivity..."
-    Write-Host ""
-    Test-NetConnection -ComputerName www.codefellows.org -Port 80
-    Write-Host ""
-    Write-Host "Press any key to continue..."
-    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    $result = Test-NetConnection -ComputerName www.codefellows.org -Port 80
+    if ($result.TcpTestSucceeded -eq $false) {
+        Write-Error "Internet connectivity test failed."
+        return
+    }
+    if ($result.TcpTestSucceeded -eq $true) {
+        Write-Host "Internet connectivity test successful."
+    }
 }
 
 while($true) {
@@ -111,5 +135,9 @@ while($true) {
     Write-Host "Invalid Input!"
     }
 }
+
+
+
+
 
 # End
