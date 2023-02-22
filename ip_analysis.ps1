@@ -60,7 +60,7 @@ function Get-TestNetAdpConnect {
     Write-Host ""
     $DefaultGateway = ipconfig /all | Select-String "Default" | Select-Object -First 1
     $DefaultGatewayIP = ($DefaultGateway -split " " -ne ""[-1])
-    Test-NetConnection -ComputerName $DefaultGatewayIP
+    Test-NetConnection $DefaultGatewayIP -Count 4
     Write-Host ""
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
