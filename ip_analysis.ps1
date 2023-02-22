@@ -18,32 +18,11 @@
     # [Out-String] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/out-string?view=powershell-7.3)
     # [Select-String] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-string?view=powershell-7.3)
     # [Test-Connection] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-connection?view=powershell-7.3)
+    # [Test-NetConnection] (https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection?view=windowsserver2022-ps)
+    # [Get-NetIPConfiguration] (https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-netipconfiguration?view=windowsserver2022-ps)
+    # [about_While] (https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_while?view=powershell-7.3)
 
 # Main
-
-clear
-
-function Get-IP {
-    $ipVersionReq = Read-Host "Please enter which IP verion you would like displayed 1) IPv4 or 2) IPv6?"
-    if ($ipVersionReq = "1") {
-        ipconfig /all | Select-String "IPv4" | Write-Output
-    } elseif ($ipVersionReq = "2") {
-        ipconfig /all | Select-String "IPv6" | Write-Output
-    } else {
-        Write-Host "Invalid Input!"
-    }
-}
-
-Get-IP
-
-# End
-
-# Code beneath is experimental
-
-
-
-
-
 
 clear
 
@@ -56,12 +35,66 @@ function Get-IP {
     } else {
         Write-Host "Invalid Input!"
     }
+    Write-Host ""
     Write-Host "Press any key to continue..."
     $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
 Get-IP
 
-# Get-TestNetAdpConnect
+# End
+
+# Code beneath is experimental
+
+clear
+
+function Get-IP {
+    Write-Host "Below is your IPv4 address..."
+    Write-Host ""
+    ipconfig /all | Select-String "IPv4" | Select-Object -First 1 | Write-Output
+    Write-Host ""
+    Write-Host "Press any key to continue..."
+    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+
+function Get-TestNetAdpConnect {
+    clear
+    Write-Host "Testing Network Adapter connectivity..."
+    Write-Host ""
+    Test-NetConnection -ComputerName (Get-NetIPConfiguration).IPv4DefaultGateway
+    Write-Host ""
+    Write-Host "Press any key to continue..."
+    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+
+function Get-TestIntConnect {
+    clear
+    Write-Host "Testing internet connectivity..."
+    Write-Host ""
+    Test-NetConnection -ComputerName www.codefellows.org -Port 80
+    Write-Host ""
+    Write-Host "Press any key to continue..."
+    $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+
+while($true) {
+    Write-Host "1) Current IPv4 Address"
+    Write-Host "2) Network Adapter connectivity status"
+    Write-Host "3) Internet connectivity status"
+    Write-Host "4) Exit"
+    $Selection = Read-Host "Please make a selection..."
+
+    if ($Selection -eq 1) {
+    Get-IP
+    } elseif ($Selection -eq 2) {
+    Get-TestNetAdpConnect
+    } elseif ($Selection -eq 3) {
+    Get-TestIntConnect
+    } elseif ($Selection -eq 4) {
+    exit
+    } else {
+    Write-Host "Invalid Input!"
+    }
+}
 
 # End
