@@ -15,25 +15,30 @@
     # [nslookup command in Linux with Examples] (https://www.geeksforgeeks.org/nslookup-command-in-linux-with-examples/)
 
 # Main
+clear
 
 exe_command() {
-    clear
-    echo "whois results..."
+    echo "WHOIS RESULTS..."
+    echo "----------------"
     echo ""
     whois $user_domain
     echo ""
-    echo "dig results..."
+    echo "DIG RESULTS..."
+    echo "--------------"
     echo ""
     dig $user_domain
     echo ""
-    echo "host results..."
+    echo "HOST RESULTS..."
+    echo "---------------"
     echo ""
     host $user_domain
     echo ""
-    echo "nslookup results..."
+    echo "NSLOOKUP RESULTS..."
+    echo "-------------------"
     echo ""
     nslookup $user_domain
     echo ""
+}
     # if [[ $user_command == "1" ]]; then
     #     whois $user_domain
     #     echo ""
@@ -60,7 +65,6 @@ exe_command() {
     #     echo "Invalid command selected!"
     #     echo ""
     # fi
-}
 
 while true
 do
@@ -75,7 +79,7 @@ do
     # echo ""
     # echo "Please choose the command you would like to run on your selected domain"
     # read $user_command
-    
+
     exe_command
 done
 
