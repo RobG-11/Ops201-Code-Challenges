@@ -1,4 +1,4 @@
-### **Welcome to my Ops-201-Code-Challenges wiki!**
+### **Ops-201-Code-Challenges**
 ---------------------------------------------------
 
 This repo is a compilation of the code I created throughout the 201 course. It is my hope it will serve as a valuable resource in my future studies & employment. These coding challenges have solidified my strong belief that the ability to automate IT & cybersecurity tasks is well within my grasp, and will be an integral part of my studies moving forward. I embrace the expectation that I will be capable of automating these actions in the workplace, and can think of numerous ways to implement what I've learned.
@@ -23,7 +23,7 @@ While I feel I have a good understanding of variables, conditionals, and loops, 
 
 **[09_log_retriever.ps1](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/09_log_retriever.ps1)** - Identifies user and retrieves & displays five system logs parsed for specific data requested (PowerShell)
 
-**[10_sys_proc_info.ps1](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/10_sys_proc_info.ps1)** - Displays three parsed and sorted running process lists, opens multiple browser instances and then closes by killing browser PID (PowerShell)
+**[10_sys_proc_info.ps1](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/10_sys_proc_info.ps1)** - Displays three parsed and sorted running process lists, opens multiple browser instances, and then closes them by killing browser PID (PowerShell)
 
 **[11_auto_end_config.ps1](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/11_auto_end_config.ps1)** - Auto configures sharing, ICMP traffic, Remote Management, Hyper-V, SMBv1, offers elimination of bloatware (PowerShell)
 
