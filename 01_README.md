@@ -7,17 +7,17 @@ I truly enjoyed working with PowerShell. It felt easier to pick up for me than P
 
 While I feel I have a good understanding of variables, conditionals, and loops, I feel like I still haven't truly grasped the full potential of functions. I'm looking forward to diving into the use of parameters with functions next to expand my capabilities.
 
-**[02_helloworld.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/02_helloworld.sh)** - Print a string to the terminal
+**[02_helloworld.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/02_helloworld.sh)** - Prints string to terminal
 
-**[03_linux_log_parser.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/03_linux_log_parser.sh)**
+**[03_linux_log_parser.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/03_linux_log_parser.sh)** - Enables users to parse through seven essential Linux log files
 
-**[04_dir_file_generator.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/04_dir_file_generator.sh)**
+**[04_dir_file_generator.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/04_dir_file_generator.sh)** - Enables users to select up to five directories and up to five files in each directory for creation
 
-**[05_process_killer.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/05_process_killer.sh)**
+**[05_process_killer.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/05_process_killer.sh)** - Identifies user, displays all current running processes, and allows user to kill only processes user account is authorized to
 
-**[06_dir_no_find_create.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/06_dir_no_find_create.sh)**
+**[06_dir_no_find_create.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/06_dir_no_find_create.sh)** - Searches for provided directory and creates if not found
 
-**[07_system_info.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/07_system_info.sh)**
+**[07_system_info.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/07_system_info.sh)** - 
 
 **[08_MyProjectFiles_Backup.bat](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/08_MyProjectFiles_Backup.bat)**
 
