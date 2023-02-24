@@ -8,7 +8,7 @@ I truly enjoyed working with PowerShell. It felt easier to pick up for me than P
 While I feel I have a good understanding of variables, conditionals, and loops, I feel like I still haven't truly grasped the full potential of functions. I'm looking forward to diving into the use of parameters with functions next to expand my capabilities.
 
 **[02_helloworld.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/02_helloworld.sh)**
-- Purpose: Print a string to the terminal
+**- Purpose:** Print a string to the terminal
 
 **[03_linux_log_parser.sh](https://github.com/RobG-11/Ops201-Code-Challenges/blob/main/03_linux_log_parser.sh)**
 
